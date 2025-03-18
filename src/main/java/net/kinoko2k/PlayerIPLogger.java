@@ -21,7 +21,6 @@ public class PlayerIPLogger extends JavaPlugin implements Listener, CommandExecu
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
-        getCommand("iplist").setExecutor(this);
         loadConfig();
     }
 
@@ -56,23 +55,5 @@ public class PlayerIPLogger extends JavaPlugin implements Listener, CommandExecu
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("iplist")) {
-            List<String> datalist = config.getStringList("datalist");
-            if (datalist.isEmpty()) {
-                sender.sendMessage("§cIPデータがありません。");
-                return true;
-            }
-
-            sender.sendMessage("§a保存されたデータ一覧です。");
-            for (String entry : datalist) {
-                sender.sendMessage("§7- " + entry);
-            }
-            return true;
-        }
-        return false;
     }
 }
